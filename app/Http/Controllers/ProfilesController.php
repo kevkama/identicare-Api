@@ -11,7 +11,7 @@ class ProfilesController extends Controller
         $request->validate([
             "user_name" => "required",
             "email" => "required",
-            "profile_pic" => "image|mimes:jpeg,png,jpg|2048",
+            "profile_pic" => "image|mimes:jpeg,png,jpg|max:2048",
             "full_name" => "required",
             "bio" => "required",
         ]);
@@ -34,7 +34,7 @@ class ProfilesController extends Controller
     }
      public function readAllProfiles(){
         // $profiles = Profiles::all();
-        $profiles = Profiles::join('profiles', 'profiles.user_id', '=', 'user.id')
+        $profiles = Profiles::join('users', 'profiles.user_name', '=', 'users.id')
         ->select('profiles.*','users.name as name', 'users.email as email')->get();
 
         if(!$profiles){
@@ -69,7 +69,7 @@ class ProfilesController extends Controller
             $request ->validate([
                 "user_name" => "required",
                 "email" => "required",
-                "profile_pic" => "image|mimes:jpeg,png,jpg|2048",
+                "profile_pic" => "image|mimes:jpeg,png,jpg|max:2048",
                 "full_name" => "required",
                 "bio" => "required",
             ]);

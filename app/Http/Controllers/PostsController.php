@@ -11,9 +11,7 @@ class PostsController extends Controller
         $request->validate([
             "user" => "required",
             "content" => "required",
-            "image" => "image|mimes:jpeg,png,jpg|2048",
-            "likes" => "required",
-            "comments" => "required",
+            "image" => "image|mimes:jpeg,png,jpg|max:2048",
         ]);
         if($request->hasFile('image')){
             $filename=$request->file('image')->store('post','public');
@@ -22,11 +20,9 @@ class PostsController extends Controller
         }
 
         $post = Posts::create([
-            'user' => $request->user_name,
-            'content' => $request->email,
+            'user' => $request->user,
+            'content' => $request->content,
             'image' => $filename,
-            'likes' => $request->communities,
-            'comments' => $request->full_name,
         ]);
         
 
@@ -66,12 +62,10 @@ class PostsController extends Controller
             $request ->validate([
                 "user" => "required",
                 "content" => "required",
-                "image" => "image|mimes:jpeg,png,jpg|2048",
-                "likes" => "required",
-                "comments" => "required",
+                "image" => "image|mimes:jpeg,png,jpg|max:2048",
             ]);
-            if($request->hasFile('post_pic')){
-                $filename=$request->file('post_pic')->store('post','public');
+            if($request->hasFile('image')){
+                $filename=$request->file('image')->store('post','public');
             }else{
                 $filename = null;
             }
@@ -80,8 +74,6 @@ class PostsController extends Controller
                 $post -> user = $request->user;
                 $post -> content = $request->content;
                 $post -> image = $filename;
-                $post -> likes = $request->communities;
-                $post -> comments = $request->full_name;
                 return response ()->json($post);
             }
             else{

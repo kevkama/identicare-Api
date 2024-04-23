@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CommunitiesController;
 use App\Http\Controllers\ConnectsController;
+use App\Http\Controllers\CostsController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\ProfessionalsController;
+use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\ReplysController;
 use App\Http\Controllers\ServicesController;
 use Illuminate\Http\Request;
@@ -23,23 +28,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout',[AuthController::class, 'logout']);
+    //Route::get("/profile", [CommunitiesController::class, 'readAllProfiles']);
+
+    // return $request->user();
 });
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
 
-Route::post("/community", [CommunitiesController::class, 'createCommunity']);
-Route::get("/community", [CommunitiesController::class, 'readAllCommunities']);
-Route::get("/community/{id}", [CommunitiesController::class, 'readCommunity']);
-Route::post("/community/{id}", [CommunitiesController::class, 'updateCommunity']);
-Route::delete("/community/{id}", [CommunitiesController::class, 'deleteCommunity']);
 
-Route::post("/profile", [CommunitiesController::class, 'createProfile']);
-Route::get("/profile", [CommunitiesController::class, 'readAllProfiles']);
-Route::get("/profile/{id}", [CommunitiesController::class, 'readProfile']);
-Route::post("/profile/{id}", [CommunitiesController::class, 'updateProfile']);
-Route::delete("/profile/{id}", [CommunitiesController::class, 'deleteProfile']);
+
+Route::post("/profile", [ProfilesController::class, 'createProfile']);
+Route::get("/profile", [ProfilesController::class, 'readAllProfiles']);
+Route::get("/profile/{id}", [ProfilesController::class, 'readProfile']);
+Route::post("/profile/{id}", [ProfilesController::class, 'updateProfile']);
+Route::delete("/profile/{id}", [ProfilesController::class, 'deleteProfile']);
 
 Route::post("/post", [PostsController::class, 'createPost']);
 Route::get("/post", [PostsController::class, 'readAllPosts']);
@@ -72,29 +76,18 @@ Route::get("/connect/{id}", [ConnectsController::class, 'readConnect']);
 Route::post("/connect/{id}", [ConnectsController::class, 'updateConnect']);
 Route::delete("/connect/{id}", [ConnectsController::class, 'deleteConnect']);
 
-Route::post("/chat", [ChatsController::class, 'createChat']);
-Route::get("/chat", [ChatsController::class, 'readAllChats']);
-Route::get("/chat/{id}", [ChatsController::class, 'readChat']);
-Route::post("/chat/{id}", [ChatsController::class, 'updateChat']);
-Route::delete("/chat/{id}", [ChatsController::class, 'deleteChat']);
+Route::post("/event", [EventsController::class, 'createEvent']);
+Route::get("/event", [EventsController::class, 'readAllEvents']);
+Route::get("/event/{id}", [EventsController::class, 'readEvent']);
+Route::post("/event/{id}", [EventsController::class, 'updateEvent']);
+Route::delete("/event/{id}", [EventsController::class, 'deleteEvent']);
 
-Route::post("/event", [ChatsController::class, 'createEvent']);
-Route::get("/event", [ChatsController::class, 'readAllEvents']);
-Route::get("/event/{id}", [ChatsController::class, 'readEvent']);
-Route::post("/event/{id}", [ChatsController::class, 'updateEvent']);
-Route::delete("/event/{id}", [ChatsController::class, 'deleteEvent']);
+Route::post("/cost", [CostsController::class, 'createCost']);
+Route::get("/cost", [CostsController::class, 'readAllCosts']);
+Route::get("/cost/{id}", [CostsController::class, 'readCost']);
+Route::post("/cost/{id}", [CostsController::class, 'updateCost']);
+Route::delete("/cost/{id}", [CostsController::class, 'deleteCost']);
 
-Route::post("/cost", [ChatsController::class, 'createCost']);
-Route::get("/cost", [ChatsController::class, 'readAllCosts']);
-Route::get("/cost/{id}", [ChatsController::class, 'readCost']);
-Route::post("/cost/{id}", [ChatsController::class, 'updateCost']);
-Route::delete("/cost/{id}", [ChatsController::class, 'deleteCost']);
-
-Route::post("/professional", [ChatsController::class, 'createProfessional']);
-Route::get("/professional", [ChatsController::class, 'readAllProfessionals']);
-Route::get("/professional/{id}", [ChatsController::class, 'readProfessional']);
-Route::post("/professional/{id}", [ChatsController::class, 'updateProfessional']);
-Route::delete("/professional/{id}", [ChatsController::class, 'deleteProfessional']);
 
 Route::post("/service", [ServicesController::class, 'createService']);
 Route::get("/service", [ServicesController::class, 'readAllServices']);
