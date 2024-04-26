@@ -9,6 +9,7 @@ use App\Http\Controllers\ConnectsController;
 use App\Http\Controllers\CostsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\MyUsersController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfessionalsController;
 use App\Http\Controllers\ProfilesController;
@@ -36,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
+
+Route::get('/myusers',[MyUsersController::class, 'index']);
+
 
 
 
