@@ -30,6 +30,10 @@ class PostsController extends Controller
     }
      public function readAllPosts(){
         $posts = Posts::all();
+
+        $posts = Posts::join('users', 'posts.user', '=', 'users.id')
+        ->select('posts.*','users.name as name',)->get();
+        
         if(!$posts){
             return response()->json("No Post Was found");
         }
