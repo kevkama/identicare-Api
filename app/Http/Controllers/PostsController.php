@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -33,6 +34,10 @@ class PostsController extends Controller
 
         $posts = Posts::join('users', 'posts.user', '=', 'users.id')
         ->select('posts.*','users.name as name',)->get();
+
+        // foreach ($posts as $post){
+        //     $post->image = Storage::disk('public')->get($post->path);
+        // }
         
         if(!$posts){
             return response()->json("No Post Was found");

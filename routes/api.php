@@ -46,7 +46,7 @@ Route::get('/myusers',[MyUsersController::class, 'index']);
 Route::post("/profile", [ProfilesController::class, 'createProfile']);
 Route::get("/profile", [ProfilesController::class, 'readAllProfiles']);
 Route::get("/profile/{id}", [ProfilesController::class, 'readProfile']);
-Route::post("/profile/{id}", [ProfilesController::class, 'updateProfile']);
+Route::put("/profile/{id}", [ProfilesController::class, 'updateProfile']);
 Route::delete("/profile/{id}", [ProfilesController::class, 'deleteProfile']);
 
 Route::post("/post", [PostsController::class, 'createPost']);
