@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CommunitiesController;
@@ -9,12 +10,14 @@ use App\Http\Controllers\ConnectsController;
 use App\Http\Controllers\CostsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MyUsersController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfessionalsController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\ReplysController;
 use App\Http\Controllers\ServicesController;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +34,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout',[AuthController::class, 'logout']);
+    Route::apiResource('/chat',ChatController::class)->only(['index','store','show']);
+    // Route::apiResource('/messages', MessageController::class);
     //Route::get("/profile", [CommunitiesController::class, 'readAllProfiles']);
 
     // return $request->user();
@@ -39,7 +44,7 @@ Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
 
 Route::get('/myusers',[MyUsersController::class, 'index']);
-
+Route::apiResource('/messages', MessageController::class);
 
 
 

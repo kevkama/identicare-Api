@@ -20,7 +20,7 @@ class PostsFactory extends Factory
         return [
             "user"=>User::all()->random()->id,
             "content"=> fake()-> sentence(),
-            "image"=> fake()-> image(),
+            "image"=> "https://images.pexels.com/photos/8428396/pexels-photo-8428396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         ];
     }
 }
